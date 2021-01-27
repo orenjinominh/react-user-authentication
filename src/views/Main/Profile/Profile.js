@@ -18,6 +18,12 @@ export class Profile extends React.Component {
     super(props, context)
     // provide this.state with a profile and payload
     // key which give the decoded JWT
+    this.state = {
+      profile: jwtDecode(this.props.auth.getToken()),
+      payload: jwtDecode(this.props.auth.getToken())
+    }
+
+    this.state.profile.gravatar = `${this.state.profile.gravatar}?s=250`;
   }
 
   render(){
@@ -34,7 +40,7 @@ export class Profile extends React.Component {
             <hr />
             <p><i className="glyphicon glyphicon-envelope"></i> { profile.email }</p>
             <h4>Payload</h4>
-            // display the decoded payload
+            <pre>{JSON.stringify(payload, null, 2)}</pre>
           </Col>
         </Panel>
       </div>

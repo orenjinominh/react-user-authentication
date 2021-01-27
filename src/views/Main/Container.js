@@ -43,7 +43,7 @@ export class Container extends React.Component {
           </Nav>
           <Nav pullRight>
             { auth.isAuthenticated() ? (
-              <LinkContainer to={'/home'}>
+              <LinkContainer to={'/profile'}>
                 <NavItem onClick={this.logout.bind(this)}>Log Out</NavItem>
               </LinkContainer>
             ) : (
