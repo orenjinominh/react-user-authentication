@@ -31,7 +31,17 @@ export class Login extends React.Component {
       // call the login method from this.props.auth
       // and pass the user and password
       // display any errors if no result.token comes back
+      this.props.auth.login(user, password)
+        .then(result => {
+          if (!result.token) {
+            this.setState({loginError: result.message})
+            return;
+          }
+          this.props.auth.finishAuthentication(result.token)
+          this.context.router.push('/home')
+        })
     }
+
   }
 
   onSignupSubmit(event) {
@@ -41,6 +51,15 @@ export class Login extends React.Component {
       // call the signup method from this.props.auth
       // and pass the username, email, and password
       // display any errors if no result.token comes back
+      this.props.auth.signup(username, email, password)
+        .then(result => {
+          if (!result.token) {
+            this.setState({signupError: result.message})
+            return;
+          }
+          this.props.auth.finishAuthentication(result.token);
+          this.context.router.push('/home');
+        })
     }
   }
 

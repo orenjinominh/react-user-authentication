@@ -19,6 +19,7 @@ export class Home extends React.Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
       <Jumbotron>
         <h1>Welcome!</h1>
@@ -32,6 +33,15 @@ export class Home extends React.Component {
           <li>Make requests for server resources that require a specific <code>scope</code> to be present in the JWT payload</li>
         </ul>
         // provide login and logout buttons
+        { !isAuthenticated() && 
+          <Link to={'/login'}>
+            <Button bsStyle='primary' bsSize='large'>Log In</Button>
+          </Link>
+        }
+
+        { isAuthenticated() && 
+          <Button bsStyle='primary' bsSize='large' onClick={this.logout.bind(this)}>Log Out</Button>
+        }
       </Jumbotron>
     )
   }

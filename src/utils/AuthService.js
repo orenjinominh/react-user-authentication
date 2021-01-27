@@ -29,8 +29,23 @@ export default class AuthService extends EventEmitter {
     return this._doAuthentication('users', { username, email, password })
   }
 
+  // new code for authentication checking
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      return !isTokenExpired(token);
+    } else {
+      return false;
+    }
+  }
+
   // provide a finishAuthentication method which
   // saves the token in local storage
+
+  finishAuthentication(token) {
+    localStorage.setItem('token', token);
+  }
 
   getToken() {
     // Retrieves the user token from localStorage
@@ -39,6 +54,10 @@ export default class AuthService extends EventEmitter {
 
   // provide a logout method which clears the token
   // from local storage
+
+  logout() {
+    localStorage.removeItem('token');
+  }
 
   fetch(url, options) {
     // performs api calls sending the required authentication headers
