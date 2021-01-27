@@ -32,6 +32,16 @@ export default class AuthService extends EventEmitter {
   // add an isAuthenticated method to check whether
   // the user's JWT has expired
 
+  isAuthenticated() {
+    let token = localStorage.getItem('token');
+
+    if (token) {
+      return !isTokenExpired(token);
+    } else {
+      return false
+    }
+  }
+
   finishAuthentication(token) {
     localStorage.setItem('token', token)
   }

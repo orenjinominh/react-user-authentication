@@ -32,10 +32,16 @@ export class Home extends React.Component {
           <li>Make requests for server resources protected by JWT middleware on the server</li>
           <li>Make requests for server resources that require a specific <code>scope</code> to be present in the JWT payload</li>
         </ul>
-        <Link to={'/login'}> 
-          <Button bsStyle="primary" bsSize="large">Log In</Button>
-        </Link>
-        <Button bsStyle="primary" bsSize="large" onClick={this.logout.bind(this)}>Log Out</Button>
+        {!isAuthenticated() && 
+          <Link to={'/login'}> 
+            <Button bsStyle="primary" bsSize="large">Log In</Button>
+           </Link>
+        }
+
+        {isAuthenticated() && 
+          <Button bsStyle="primary" bsSize="large" onClick={this.logout.bind(this)}>Log Out</Button>
+        }
+
       </Jumbotron>
     )
   }
