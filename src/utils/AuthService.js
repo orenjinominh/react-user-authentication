@@ -39,6 +39,10 @@ export default class AuthService extends EventEmitter {
     }
   }
 
+  isAdmin() {
+    return jwtDecode(this.getToken()).scope === 'admin';
+  }
+
   finishAuthentication(token) {
     localStorage.setItem('token', token)
   }

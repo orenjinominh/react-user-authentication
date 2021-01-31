@@ -3,7 +3,7 @@
 ## Protecting Routes Challenges
 
 * Make an authenticated `GET` request to the `/instructors` endpoint and display the returned resources in the **Instructors** view
-* Make an authenticated `POST` request to the `/instructors` endpoint to create a new instructor and return to the **Instructors** route to dispaly the newly created resource
+* Make an authenticated `POST` request to the `/instructors` endpoint to create a new instructor and return to the **Instructors** route to display the newly created resource
 
 ## Running the App
 

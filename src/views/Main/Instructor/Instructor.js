@@ -33,6 +33,9 @@ export class Instructor extends React.Component {
       instructors: []
     }
     // fetch the list of instructors from the /instructors endpoint
+
+    this.props.auth.fetch(`${API_URL}/instructors`)
+      .then(data => this.setState({instructors: data}))
   }
 
   onAddInstructorClick() {
@@ -50,9 +53,13 @@ export class Instructor extends React.Component {
     return (
       <div>
         <h2>Front End Masters Instructors</h2>
-          <Button bsStyle="primary" onClick={this.onAddInstructorClick.bind(this)}>
-            <i className="glyphicon glyphicon-plus"></i> Add Instructor
-          </Button>
+        { auth.isAuthenticated() && auth.isAdmin() &&          
+            <Button bsStyle="primary" onClick={this.onAddInstructorClick.bind(this)}>
+              <i className="glyphicon glyphicon-plus"></i> Add Instructor
+            </Button>
+        }
+
+
         <ul>
           {instructorList}
         </ul>

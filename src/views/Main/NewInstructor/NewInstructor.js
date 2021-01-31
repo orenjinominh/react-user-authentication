@@ -31,6 +31,17 @@ export class NewInstructor extends React.Component {
     const data = { first_name, last_name, email, company }
     // send a POST request to the /instructors endpoint
     // with the data object and return the instructors view when complete
+    this.props.auth.fetch(`${API_URL}/instructors`, { 
+      method: 'POST',
+      body: JSON.stringify(data)
+    }).then(result => {
+      if (result.error) {
+        this.setState({ error: result })
+        return
+      }
+      this.context.router.push('/instructor')
+    })
+
   }
 
   render() {
