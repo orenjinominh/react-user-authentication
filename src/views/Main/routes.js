@@ -11,15 +11,21 @@ import NewInstructor from './NewInstructor/NewInstructor'
 const auth = new AuthService()
 
 // onEnter callback to validate authentication in private routes
-const requireAuth = (nextState, replace) => {
+const requireAuth = (replace) => {
   // check if the user is authenticated and redirect
   // to the login route if they aren't
+  if (!auth.isAuthenticated()) {
+    replace({pathname: '/login'})
+  }
 }
 
-const requireAdmin = (nextState, replace) => {
+const requireAdmin = (replace) => {
   // check if the user is authenticated and
   // is an admin and redirect
   // to the login route if they aren't
+  if (!auth.isAuthenticated() || !auth.isAdmin()) {
+    replace({pathname: '/login'})
+  }
 }
 
 export const makeMainRoutes = () => {
@@ -30,9 +36,9 @@ export const makeMainRoutes = () => {
       <IndexRedirect to="/home" />
       <Route path="home" component={Home} />
       <Route path="login" component={Login} />
-      <Route path="profile" component={Profile} />
-      <Route path="instructor" component={Instructor} />
-      <Route path="instructor/new" component={NewInstructor} />
+      <Route path="profile" component={Profile} onEnter={requireAuth}/>
+      <Route path="instructor" component={Instructor} onEnter={requireAuth}/>
+      <Route path="instructor/new" component={NewInstructor}onEnter={requireAdmin} />
     </Route>
   )
 }
